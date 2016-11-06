@@ -1,3 +1,38 @@
+# run_analysic.R is script which is executed some required step
+1. Merges the training and the test sets to create one data set.
+2. Extracts only the measurements on the mean and standard deviation for each measurement.
+3. Uses descriptive activity names to name the activities in the data set
+4. Appropriately labels the data set with descriptive variable names.
+5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
+
+Input: 
+ 1. Need some prepare data 
+  1.1 The current working directory
+  1.2 Download the data from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+  1.3 Unzip this archived file into extracted folder
+  
+ 2. Do all required steps
+ 2.1 Merge the data  
+ 2.1.1 Read the feature data for getting the column names 
+ 2.1.2 Read the train data 
+ 2.1.3 Read the test data
+ 2.1.4 Merge the train data and test data into dataSet by rbind functionn 
+ 
+ 2.2 Extract the data on mean and sd function
+    Extract the mean and sd column from features 
+    Create the subset extracted_data from the orginal dataSet with extracted columm
+
+ 2.3. Uses descriptive activity names to name the activities in the data set
+    Load the activity labels
+    Assign the "activity" column to new labels
+
+ 2.4. Appropriately labels the data set with descriptive variable names.
+    Assign the lables for variable names
+
+ 2.5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+    Create the tidy data for each activity and each subject 
+
+
 # GettingandCleaningDataCourseProject
 The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set.
 The goal is to prepare tidy data that can be used for later analysis. 
