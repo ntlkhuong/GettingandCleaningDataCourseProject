@@ -60,15 +60,38 @@
 ## Merge the data and test into one dataset
 ### Merge all activity, data file, subject into on train dataset 
 > str(train_dataSet)  
-'data.frame':	7352 obs. of  563 variables:  
-$ activity                            : int  5 5 5 5 5 5 5 5 5 5 ...
-$ subject                             : int  1 1 1 1 1 1 1 1 1 1 ...
-$ tBodyAcc.mean...X                   : num  0.289 0.278 0.28 0.279 0.277 ...
-$ tBodyAcc.mean...Y                   : num  -0.0203 -0.0164 -0.0195 -0.0262 -0.0166 ...
-$ tBodyAcc.mean...Z                   : num  -0.133 -0.124 -0.113 -0.123 -0.115 ...
- $ tBodyAcc.std...X                    : num  -0.995 -0.998 -0.995 -0.996 -0.998 ...
- $ tBodyAcc.std...Y                    : num  -0.983 -0.975 -0.967 -0.983 -0.981 ...
+ 'data.frame':	7352 obs. of  563 variables:  
+ $ activity                            : int  5 5 5 5 5 5 5 5 5 5 ..
+ $ subject                             : int  1 1 1 1 1 1 1 1 1 1 ..
+ $ tBodyAcc.mean...X                   : num  0.289 0.278 0.28 0.279 0.277 ..
+ $ tBodyAcc.mean...Y                   : num  -0.0203 -0.0164 -0.0195 -0.0262 -0.0166 ..
+ $ tBodyAcc.mean...Z                   : num  -0.133 -0.124 -0.113 -0.123 -0.115 ..
+ $ tBodyAcc.std...X                    : num  -0.995 -0.998 -0.995 -0.996 -0.998 ..
+ $ tBodyAcc.std...Y                    : num  -0.983 -0.975 -0.967 -0.983 -0.981 ..
  
+### Merge all activity, data file, subject into on test dataset 
+> str(test_dataSet)  
+'data.frame':	2947 obs. of  563 variables:  
+ $ activity                            : int  5 5 5 5 5 5 5 5 5 5 ..
+ $ subject                             : int  2 2 2 2 2 2 2 2 2 2 ..
+ $ tBodyAcc.mean...X                   : num  0.257 0.286 0.275 0.27 0.275 ..
+ $ tBodyAcc.mean...Y                   : num  -0.0233 -0.0132 -0.0261 -0.0326 -0.0278 ..
+ $ tBodyAcc.mean...Z                   : num  -0.0147 -0.1191 -0.1182 -0.1175 -0.1295 ..
+ $ tBodyAcc.std...X                    : num  -0.938 -0.975 -0.994 -0.995 -0.994 ..
+ $ tBodyAcc.std...Y                    : num  -0.92 -0.967 -0.97 -0.973 -0.967 ..
+ $ tBodyAcc.std...Z                    : num  -0.668 -0.945 -0.963 -0.967 -0.978 ..
+ $ tBodyAcc.mad...X                    : num  -0.953 -0.987 -0.994 -0.995 -0.994 ..
+
+### Merge train and set dataset into one dataset 
+ > str(dataSet)  
+'data.frame':	10299 obs. of  563 variables:  
+ $ activity                            : int  5 5 5 5 5 5 5 5 5 5 ..
+ $ subject                             : int  1 1 1 1 1 1 1 1 1 1 ..
+ $ tBodyAcc.mean...X                   : num  0.289 0.278 0.28 0.279 0.277 ..
+ $ tBodyAcc.mean...Y                   : num  -0.0203 -0.0164 -0.0195 -0.0262 -0.0166 ..
+ $ tBodyAcc.mean...Z                   : num  -0.133 -0.124 -0.113 -0.123 -0.115 ..
+ $ tBodyAcc.std...X                    : num  -0.995 -0.998 -0.995 -0.996 -0.998 ..
+ $ tBodyAcc.std...Y                    : num  -0.983 -0.975 -0.967 -0.983 -0.981 ..
 
 
 
