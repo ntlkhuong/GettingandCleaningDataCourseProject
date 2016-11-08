@@ -1,7 +1,8 @@
 #Prepare some data 
 setwd("~/Desktop/learning/assignment5/git_remote/GettingandCleaningDataCourseProject")
-download.file(destfile = "dataset.zip","https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip")
-
+library(RCurl)
+download.file(destfile = "dataset.zip","https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
+              method="curl")
 unzip("dataset.zip")
 
 #1. Merges the training and the test sets to create one data set.
@@ -32,7 +33,7 @@ extracted_dataSet <-dataSet[,c(562,563,cols_choose)]
 
 #3. Uses descriptive activity names to name the activities in the data set
 ## Read the activity 
-activity_labels <- read.csv("UCI HAR Dataset/activity_labels.txt")
+activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt")
 dataSet[,"activity"] <- activity_labels[dataSet[,"activity"],2]
 
 #4. Appropriately labels the data set with descriptive variable 
@@ -51,8 +52,9 @@ names(dataSet) <- make.names(colNames)
 
 #5. From the data set in step 4, creates a second, independent tidy data set 
 # with the average of each variable for each activity and each subject.
-molten <- melt(extracted_dataSet, id.vars=c("activity","subject"))
-tidy_dataSet <- dcast(molten, activity + subject ~ variable, mean)
+library(plyr)
+dataset_tinyset<-aggregate(. ~subject + Activity, dataSet, mean)
+dataset_tinyset<-dataset_tinyset[order(dataset_tinyset$subject,dataset_tinyset$Activity),]
 
-write.table(tidy_dataSet, "tidy_dataSet.txt")    
+write.table(dataset_tinyset, "tidy_dataset.txt",row.names = FALSE)    
 
