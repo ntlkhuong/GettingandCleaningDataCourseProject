@@ -1,9 +1,9 @@
 #Prepare some data 
-setwd("~/Desktop/learning/assignment5/git_remote/GettingandCleaningDataCourseProject")
-library(RCurl)
-download.file(destfile = "dataset.zip","https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
-              method="curl")
-unzip("dataset.zip")
+# setwd("~/Desktop/learning/assignment5/git_remote/GettingandCleaningDataCourseProject")
+# library(RCurl)
+# download.file(destfile = "dataset.zip","https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
+#               method="curl")
+# unzip("dataset.zip")
 
 #1. Merges the training and the test sets to create one data set.
 features <- read.table("UCI HAR Dataset/features.txt",header = FALSE, sep = " ")
@@ -33,11 +33,17 @@ extracted_dataSet <-dataSet[,c(562,563,cols_choose)]
 
 #3. Uses descriptive activity names to name the activities in the data set
 ## Read the activity 
-activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt")
-dataSet[,"activity"] <- activity_labels[dataSet[,"activity"],2]
+activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt",header = FALSE)
+
+extracted_dataSet$activity <- as.character(extracted_dataSet$activity)
+for (i in 1:6){
+    extracted_dataSet$activity[extracted_dataSet$activity == i] <- as.character(activity_labels[i,2])
+}
+
+extracted_dataSet$activity <- as.factor(extracted_dataSet$activity)
 
 #4. Appropriately labels the data set with descriptive variable 
-colNames <- names(dataSet)
+colNames <- names(extracted_dataSet)
 colNames <-gsub("Acc", " Accelerometer", colNames)
 colNames <-gsub("Gyro", " Gyroscope", colNames)
 colNames <-gsub("Mag", " Magnitude", colNames)
@@ -47,14 +53,17 @@ colNames <-gsub("^f", "Frequency", colNames)
 colNames <-gsub("mean[(][)]", "Mean", colNames)
 colNames <-gsub("std[(][)]", "StandardDeviation", colNames)
 colNames <-gsub("activity", "Activity", colNames)
-colNames <-gsub("subjectId", "Subject.Id", colNames)
-names(dataSet) <- make.names(colNames)
+colNames <-gsub("subject", "Subject", colNames)
+names(extracted_dataSet) <- make.names(colNames)
 
 #5. From the data set in step 4, creates a second, independent tidy data set 
 # with the average of each variable for each activity and each subject.
 library(plyr)
-dataset_tinyset<-aggregate(. ~subject + Activity, dataSet, mean)
-dataset_tinyset<-dataset_tinyset[order(dataset_tinyset$subject,dataset_tinyset$Activity),]
+library(data.table)
+extracted_dataSet$Subject <- as.factor(extracted_dataSet$Subject)
+extracted_dataSet <- data.table(extracted_dataSet)
+
+dataset_tinyset<-aggregate(. ~Subject + Activity, extracted_dataSet, mean)
+dataset_tinyset<-dataset_tinyset[order(dataset_tinyset$Subject,dataset_tinyset$Activity),]
 
 write.table(dataset_tinyset, "tidy_dataset.txt",row.names = FALSE)    
-
